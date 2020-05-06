@@ -158,7 +158,7 @@ export default new Router({
         },
         {
             path: '*',
-            component: () => import('@/views/pages/Index'),
+            component: () => import('@/layouts/pages/Index'),
             children: [
                 {
                     name: '404 Error',
