@@ -9,7 +9,7 @@ export default new Router({
     routes: [
         {
             path: '/pages',
-            component: () => import('@/views/pages/Index'),
+            component: () => import('@/layouts/pages/Index'),
             children: [
                 {
                     name: 'Lock',
@@ -35,7 +35,7 @@ export default new Router({
         },
         {
             path: '/',
-            component: () => import('@/views/dashboard/Index'),
+            component: () => import('@/layouts/dashboard/Index'),
             children: [
                 // Dashboard
                 {
