@@ -176,9 +176,9 @@ export default {
     },
 
     methods: {
-        setDrawer(val) {
-            this.$store.dispatch("app/setDrawer", val);
-        }
+        ...mapMutations({
+            setDrawer: "app/SET_DRAWER"
+        })
     }
 };
 </script>

@@ -295,9 +295,9 @@ export default {
     },
 
     methods: {
-        setBarImage(val) {
-            this.$store.dispatch("app/setBarImage", val);
-        }
+        ...mapMutations({
+            setBarImage: "app/SET_BAR_IMAGE"
+        })
     }
 };
 </script>
