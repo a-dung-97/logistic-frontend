@@ -5,14 +5,25 @@
             elevation="1"
             fab
             small
-            @click="$vuetify.breakpoint.smAndDown ? setDrawer(!drawer) : $emit('input', !value)"
+            @click="
+                $vuetify.breakpoint.smAndDown
+                    ? setDrawer(!drawer)
+                    : $emit('input', !value)
+            "
         >
-            <v-icon v-if="value">mdi-view-quilt</v-icon>
+            <v-icon v-if="value">
+                mdi-view-quilt
+            </v-icon>
 
-            <v-icon v-else>mdi-dots-vertical</v-icon>
+            <v-icon v-else>
+                mdi-dots-vertical
+            </v-icon>
         </v-btn>
 
-        <v-toolbar-title class="hidden-sm-and-down font-weight-light" v-text="$route.name" />
+        <v-toolbar-title
+            class="hidden-sm-and-down font-weight-light"
+            v-text="$route.name"
+        />
 
         <v-spacer />
 
@@ -35,7 +46,13 @@
             <v-icon>mdi-view-dashboard</v-icon>
         </v-btn>
 
-        <v-menu bottom left offset-y origin="top right" transition="scale-transition">
+        <v-menu
+            bottom
+            left
+            offset-y
+            origin="top right"
+            transition="scale-transition"
+        >
             <template v-slot:activator="{ attrs, on }">
                 <v-btn class="ml-2" min-width="0" text v-bind="attrs" v-on="on">
                     <v-badge color="red" overlap bordered>
@@ -50,7 +67,10 @@
 
             <v-list :tile="false" nav>
                 <div>
-                    <app-bar-item v-for="(n, i) in notifications" :key="`item-${i}`">
+                    <app-bar-item
+                        v-for="(n, i) in notifications"
+                        :key="`item-${i}`"
+                    >
                         <v-list-item-title v-text="n" />
                     </app-bar-item>
                 </div>
@@ -73,7 +93,11 @@
 
             <v-list :tile="false" flat nav>
                 <template v-for="(p, i) in profile">
-                    <v-divider v-if="p.divider" :key="`divider-${i}`" class="mb-2 mt-2" />
+                    <v-divider
+                        v-if="p.divider"
+                        :key="`divider-${i}`"
+                        class="mb-2 mt-2"
+                    />
 
                     <app-bar-item v-else :key="`item-${i}`" to="/">
                         <v-list-item-title v-text="p.title" />
@@ -89,7 +113,7 @@
 import { VHover, VListItem } from "vuetify/lib";
 
 // Utilities
-import { mapState, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
     name: "DashboardCoreAppBar",
@@ -148,13 +172,13 @@ export default {
     }),
 
     computed: {
-        ...mapState(["drawer"])
+        ...mapGetters(["drawer"])
     },
 
     methods: {
-        ...mapMutations({
-            setDrawer: "SET_DRAWER"
-        })
+        setDrawer(val) {
+            this.$store.dispatch("app/setDrawer", val);
+        }
     }
 };
 </script>

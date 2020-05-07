@@ -18,18 +18,20 @@
 
         <v-list-item two-line>
             <v-list-item-content>
-                <v-list-item-title class="text-uppercase font-weight-regular display-2">
-                    <span class="logo-mini">{{ $t('ct') }}</span>
-                    <span class="logo-normal">{{ $t('tim') }}</span>
+                <v-list-item-title
+                    class="text-uppercase font-weight-regular display-2"
+                >
+                    <span class="logo-mini">{{ $t("ct") }}</span>
+                    <span class="logo-normal">{{ $t("tim") }}</span>
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
 
-        <!-- <v-divider class="mb-1" />
+        <v-divider class="mb-1" />
 
         <v-list dense nav>
             <base-item-group :item="profile" />
-        </v-list>-->
+        </v-list>
 
         <v-divider class="mb-2" />
 
@@ -39,7 +41,11 @@
             <div />
 
             <template v-for="(item, i) in computedItems">
-                <base-item-group v-if="item.children" :key="`group-${i}`" :item="item">
+                <base-item-group
+                    v-if="item.children"
+                    :key="`group-${i}`"
+                    :item="item"
+                >
                     <!--  -->
                 </base-item-group>
 
@@ -55,7 +61,7 @@
 
 <script>
 // Utilities
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
     name: "DashboardCoreDrawer",
@@ -230,13 +236,13 @@ export default {
     }),
 
     computed: {
-        ...mapState(["barColor", "barImage"]),
+        ...mapGetters(["barColor", "barImage"]),
         drawer: {
             get() {
                 return this.$store.state.drawer;
             },
             set(val) {
-                this.$store.commit("SET_DRAWER", val);
+                this.$store.commit("app/SET_DRAWER", val);
             }
         },
         computedItems() {
@@ -270,9 +276,7 @@ export default {
             this.$emit("update:expandOnHover", !val);
         }
     },
-    // created() {
-    //     console.log(this.$t("dashboard"));
-    // },
+
     methods: {
         mapItem(item) {
             return {
@@ -291,62 +295,62 @@ export default {
 @import '~vuetify/src/styles/tools/_rtl.sass'
 
 #core-navigation-drawer
-    &.v-navigation-drawer--mini-variant
+  &.v-navigation-drawer--mini-variant
     .v-list-item
-        justify-content: flex-start !important
+      justify-content: flex-start !important
 
     .v-list-group--sub-group
-        display: block !important
+      display: block !important
 
-    .v-list-group__header.v-list-item--active:before
-        opacity: .24
+  .v-list-group__header.v-list-item--active:before
+    opacity: .24
 
-    .v-list-item
+  .v-list-item
     &__icon--text,
     &__icon:first-child
-        justify-content: center
-        text-align: center
-        width: 20px
+      justify-content: center
+      text-align: center
+      width: 20px
 
-        +ltr()
+      +ltr()
         margin-right: 24px
         margin-left: 12px !important
 
-        +rtl()
+      +rtl()
         margin-left: 24px
         margin-right: 12px !important
 
-    .v-list--dense
+  .v-list--dense
     .v-list-item
-        &__icon--text,
-        &__icon:first-child
-            margin-top: 10px
+      &__icon--text,
+      &__icon:first-child
+        margin-top: 10px
 
-    .v-list-group--sub-group
+  .v-list-group--sub-group
     .v-list-item
-        +ltr()
+      +ltr()
         padding-left: 8px
 
-        +rtl()
+      +rtl()
         padding-right: 8px
 
     .v-list-group__header
-        +ltr()
+      +ltr()
         padding-right: 0
+
+      +rtl()
+        padding-right: 0
+
+      .v-list-item__icon--text
+        margin-top: 19px
+        order: 0
+
+      .v-list-group__header__prepend-icon
+        order: 2
+
+        +ltr()
+          margin-right: 8px
 
         +rtl()
-        padding-right: 0
-
-        .v-list-item__icon--text
-            margin-top: 19px
-            order: 0
-
-        .v-list-group__header__prepend-icon
-            order: 2
-
-            +ltr()
-            margin-right: 8px
-
-            +rtl()
-            margin-left: 8px
+          margin-left: 8px
 </style>

@@ -73,38 +73,38 @@ service.interceptors.response.use(
     },
     error => {
 
-        if (error.response.status === 422) {
-            for (let field in error.response.data.errors) {
-                error.response.data.errors[field].forEach(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 2 * 1000
-                    })
-                })
-            }
-        }
-        else if (error.response.data.message == "Unauthenticated.") {
-            // to re-login
-            MessageBox.confirm('Bạn đã đăng xuất', 'Xác nhận đăng xuất', {
-                confirmButtonText: 'Đăng nhập lại',
-                cancelButtonText: 'Hủy bỏ',
-                type: 'warning'
-            }).then(() => {
-                store.dispatch('user/resetToken').then(() => {
-                    location.reload()
-                })
-            })
-        }
-        else if (error.response.status === 400)
-            Message({
-                message: error.response.data.message,
-                type: 'error',
-                duration: 3 * 1000
-            })
-        else if (error.response.status === 404)
-            router.push('/404');
-        return Promise.reject(error)
+        // if (error.response.status === 422) {
+        //     for (let field in error.response.data.errors) {
+        //         error.response.data.errors[field].forEach(error => {
+        //             Message({
+        //                 message: error,
+        //                 type: 'error',
+        //                 duration: 2 * 1000
+        //             })
+        //         })
+        //     }
+        // }
+        // else if (error.response.data.message == "Unauthenticated.") {
+        //     // to re-login
+        //     MessageBox.confirm('Bạn đã đăng xuất', 'Xác nhận đăng xuất', {
+        //         confirmButtonText: 'Đăng nhập lại',
+        //         cancelButtonText: 'Hủy bỏ',
+        //         type: 'warning'
+        //     }).then(() => {
+        //         store.dispatch('user/resetToken').then(() => {
+        //             location.reload()
+        //         })
+        //     })
+        // }
+        // else if (error.response.status === 400)
+        //     Message({
+        //         message: error.response.data.message,
+        //         type: 'error',
+        //         duration: 3 * 1000
+        //     })
+        // else if (error.response.status === 404)
+        //     router.push('/404');
+        // return Promise.reject(error)
     }
 )
 
