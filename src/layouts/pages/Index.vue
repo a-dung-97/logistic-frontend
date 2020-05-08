@@ -1,29 +1,32 @@
 <template>
-  <v-app>
-    <pages-core-app-bar />
+    <v-app>
+        <pages-core-app-bar />
 
-    <pages-core-view />
+        <pages-core-view />
 
-    <pages-core-footer />
-  </v-app>
+        <pages-core-footer />
+        <Snackbar />
+        <Snackbar />
+    </v-app>
 </template>
 
 <script>
-  export default {
-    name: 'PagesIndex',
+export default {
+    name: "PagesIndex",
 
     components: {
-      PagesCoreAppBar: () => import('./components/core/AppBar'),
-      PagesCoreFooter: () => import('./components/core/Footer'),
-      PagesCoreView: () => import('./components/core/View'),
+        PagesCoreAppBar: () => import("./components/core/AppBar"),
+        PagesCoreFooter: () => import("./components/core/Footer"),
+        PagesCoreView: () => import("./components/core/View"),
+        Snackbar: () => import("../../components/SnackBar")
     },
 
-    created () {
-      this.$vuetify.theme.dark = true
+    created() {
+        this.$vuetify.theme.dark = true;
     },
 
-    beforeDestroy () {
-      this.$vuetify.theme.dark = false
-    },
-  }
+    beforeDestroy() {
+        this.$vuetify.theme.dark = false;
+    }
+};
 </script>

@@ -2,6 +2,10 @@ const getters = {
     barColor: state => state.app.barColor,
     barImage: state => state.app.barImage,
     drawer: state => state.app.drawer,
+    snackbarShow: state => state.app.snackbarShow,
+    snackbarText: state => state.app.snackbarText,
+    snackbarType: state => state.app.snackbarType,
+    token: state => state.user.token
     // id: state => state.user.id,
     // avatar: state => state.user.avatar,
     // name: state => state.user.name,
@@ -12,5 +16,5 @@ const getters = {
     // email: state => state.user.email,
     // permission_routes: state => state.permission.routes,
     // tiny_drive_token: state => state.user.tiny_drive_token
-}
-export default getters
+};
+export default getters;

@@ -1,0 +1,16 @@
+{
+    "folders": [
+		{
+			"path": "..\\..\\..\\..\\..\\laragon\\www\\logistic"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "."
+		}
+	],
+    "settings": {
+        "git.ignoreLimitWarning": true
+    }
+}

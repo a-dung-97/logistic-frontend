@@ -99,7 +99,7 @@
                         class="mb-2 mt-2"
                     />
 
-                    <app-bar-item v-else :key="`item-${i}`" to="/">
+                    <app-bar-item to="/logout" v-else :key="`item-${i}`">
                         <v-list-item-title v-text="p.title" />
                     </app-bar-item>
                 </template>
@@ -110,6 +110,7 @@
 
 <script>
 // Components
+
 import { VHover, VListItem } from "vuetify/lib";
 
 // Utilities
@@ -164,10 +165,9 @@ export default {
             "Another one"
         ],
         profile: [
-            { title: "Profile" },
-            { title: "Settings" },
+            { title: "Hồ sơ cá nhân" },
             { divider: true },
-            { title: "Log out" }
+            { title: "Đăng xuất" }
         ]
     }),
 
@@ -179,6 +179,11 @@ export default {
         ...mapMutations({
             setDrawer: "app/SET_DRAWER"
         })
+    },
+    mounted() {
+        // this.$refs["abc-2"][0].addEventListener("click", function() {
+        //     console.log("ok");
+        // });
     }
 };
 </script>
