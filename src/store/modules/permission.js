@@ -1,7 +1,6 @@
-import { routes } from '@/router/index'
+import { asyncRoutes } from "@/router/index";
 // import { getMenuList } from '@/api/company/role';
-import { setPermissions } from '@/utils/auth'
-
+import { setPermissions } from "@/utils/auth";
 
 // function hasPermission(roles, route) {
 //     if (route.meta && route.meta.roles) {
@@ -36,66 +35,44 @@ import { setPermissions } from '@/utils/auth'
 //     return res
 // }
 
-// export function filterAsyncRoutes(routes, roles) {
-//     const res = []
-//     // console.log(routes);
-//     routes = addRolesToRoute(routes);
-//     routes.forEach(route => {
-//         const tmp = { ...route }
-//         if (hasPermission(roles, tmp)) {
-//             if (tmp.children) {
-//                 tmp.children = filterAsyncRoutes(tmp.children, roles)
-
-//             }
-//             res.push(tmp)
-//         }
-//     })
-//     return res
-// }
+export function filterAsyncRoutes(asyncRoutes, routes) {
+    return asyncRoutes.filter(item => {
+        return routes.includes(item.name);
+    });
+}
 
 const state = {
-    routes: [],
-    permissions: JSON.parse(localStorage.getItem("permissions"))
-}
+    // permissions: []
+};
 
 const mutations = {
-    SET_ROUTES: (state, routes) => {
-        state.routes = routes
-    },
-    SET_PERMISSIONS: (state, permissions) => {
-        state.permissions = permissions
-    }
-}
+    // SET_PERMISSIONS: (state, permissions) => {
+    //     state.permissions = permissions;
+    // }
+};
 
 const actions = {
-    generateRoutes({ commit }, roles) {
+    generateRoutes({ commit }, menus) {
         return new Promise(resolve => {
-            let accessedRoutes
-            // if (roles.includes('admin')) accessedRoutes = asyncRoutes;
-            // else
-            //console.log(asyncRoutes);
-            //accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
-            accessedRoutes = asyncRoutes;
-            commit('SET_ROUTES', accessedRoutes)
-            resolve(accessedRoutes)
-        })
-    },
-    getPermissions({ commit, state }) {
-        return new Promise((resolve, reject) => {
-            getMenuList().then((result) => {
-                commit('SET_PERMISSIONS', result.data)
-                setPermissions(JSON.stringify(result.data));
-                resolve()
-            }).catch((err) => {
-                reject(err);
-            });
-        })
-    },
-}
+            let accessedRoutes = [
+                {
+                    path: "/",
+                    component: () => import("@/layouts/dashboard/Index"),
+                    children: asyncRoutes
+                },
+                {
+                    path: "*",
+                    redirect: "/404"
+                }
+            ];
+            resolve(accessedRoutes);
+        });
+    }
+};
 
 export default {
     namespaced: true,
     state,
     mutations,
     actions
-}
+};

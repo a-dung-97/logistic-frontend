@@ -132,13 +132,19 @@ export default {
             this.loading = true;
             this.$store
                 .dispatch("user/login", this.form)
-                .then(() => {
+                .then(token => {
+                    let payload = JSON.parse(atob(token.split(".")[1]));
                     this.loading = false;
-                    this.$router.push({
-                        path: this.redirect || "/"
-                    });
+                    this.$router
+                        .push({
+                            path: payload.home_url || "/"
+                        })
+                        .catch(err => {
+                            // console.log(err);
+                        });
                 })
                 .catch(error => {
+                    console.log(error);
                     if (error.response.status === 401) {
                         this.$snackbar("Sai tài khoản hoặc mật khẩu", "error");
                         this.loading = false;

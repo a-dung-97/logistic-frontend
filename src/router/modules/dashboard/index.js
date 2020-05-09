@@ -1,35 +1,34 @@
-import componentsRouter from './components/index';
-import formRouter from './forms/index';
-const dashboardRouter = {
-    path: '/',
-    component: () => import('@/layouts/dashboard/Index'),
-    children: [
-        // Dashboard
-        {
-            name: 'Dashboard',
-            path: '',
-            component: () => import('@/views/dashboard/Dashboard'),
-        },
-        // Components
-        ...componentsRouter,
-        // Forms
-        ...formRouter,
-        //Root Level
-        {
-            name: 'Widgets',
-            path: 'widgets',
-            component: () => import('@/views/dashboard/Widgets'),
-        },
-        {
-            name: 'Charts',
-            path: 'charts',
-            component: () => import('@/views/dashboard/Charts'),
-        },
-        {
-            name: 'Calendar',
-            path: 'calendar',
-            component: () => import('@/views/dashboard/Calendar'),
-        },
-    ],
-}
-export default dashboardRouter
+const dashboardRouter = [
+    // Dashboard
+    {
+        name: "Người dùng",
+        path: "users",
+        component: () => import("@/views/dashboard/user/index")
+    },
+    {
+        name: "Menu",
+        path: "menus",
+        component: () => import("@/views/dashboard/menu/index")
+    },
+    {
+        name: "Quyền",
+        path: "roles",
+        component: () => import("@/views/dashboard/role/index")
+    },
+    {
+        name: "Nhóm chức năng",
+        path: "action/action-groups",
+        component: () => import("@/views/dashboard/action/action-group/index")
+    },
+    {
+        name: "Danh sách chức năng",
+        path: "action/list",
+        component: () => import("@/views/dashboard/action/list/index")
+    }
+    // Components
+    // Forms
+
+    //Root Level
+];
+
+export default dashboardRouter;

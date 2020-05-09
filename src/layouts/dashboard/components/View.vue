@@ -1,6 +1,6 @@
 <template>
     <v-content>
-        <router-view />
+        <router-view transition="scale-transition" />
 
         <dashboard-core-footer />
     </v-content>

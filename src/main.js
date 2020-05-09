@@ -21,6 +21,7 @@ import "./plugins/vee-validate";
 import "./plugins/vue-world-map";
 import vuetify from "./plugins/vuetify";
 import i18n from "./i18n";
+
 // import Vuelidate from "vuelidate";
 // Vue.use(Vuelidate);
 import "@/permission"; // permission control

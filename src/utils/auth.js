@@ -16,6 +16,3 @@ export function removeToken() {
 export function setPermissions(permissions) {
     return localStorage.setItem("permissions", permissions);
 }
-export function removePermissions() {
-    return localStorage.removeItem("permissions");
-}

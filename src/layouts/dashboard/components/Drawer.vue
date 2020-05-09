@@ -21,8 +21,8 @@
                 <v-list-item-title
                     class="text-uppercase font-weight-regular display-2"
                 >
-                    <span class="logo-mini">{{ $t("ct") }}</span>
-                    <span class="logo-normal">{{ $t("tim") }}</span>
+                    <span class="logo-mini">SMG</span>
+                    <span class="logo-normal">SKYMAP GLOBAL</span>
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
@@ -136,7 +136,7 @@ export default {
                     },
                     {
                         title: "buttons",
-                        to: "buttons"
+                        to: "/buttons"
                     },
                     {
                         title: "grid",
@@ -236,7 +236,8 @@ export default {
     }),
 
     computed: {
-        ...mapGetters(["barColor", "barImage"]),
+        ...mapGetters(["barColor", "barImage", "name"]),
+        ...mapGetters({ items1: "menus" }),
         drawer: {
             get() {
                 return this.$store.state.drawer;
@@ -246,25 +247,21 @@ export default {
             }
         },
         computedItems() {
-            return this.items.map(this.mapItem);
+            return this.items1.map(this.mapItem);
         },
         profile() {
             return {
                 avatar: true,
                 group: "",
-                title: this.$t("avatar"),
+                title: this.name,
                 children: [
                     {
-                        href: "",
-                        title: this.$t("my-profile")
+                        to: "profile",
+                        title: "Hồ sơ cá nhân"
                     },
                     {
-                        to: "",
-                        title: this.$t("edit-profile")
-                    },
-                    {
-                        to: "",
-                        title: this.$t("settings")
+                        to: "logout",
+                        title: "Đăng xuất"
                     }
                 ]
             };
@@ -284,7 +281,7 @@ export default {
                 children: item.children
                     ? item.children.map(this.mapItem)
                     : undefined,
-                title: this.$t(item.title)
+                title: item.title
             };
         }
     }
@@ -353,4 +350,18 @@ export default {
 
         +rtl()
           margin-left: 8px
+</style>
+<style lang="scss">
+.v-navigation-drawer__content {
+    overflow-y: overlay;
+    // &::-webkit-scrollbar {
+    //     width: 8px;
+    //     background-color: transparent;
+    // }
+    // &::-webkit-scrollbar-thumb {
+    //     border-radius: 8px;
+    //     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    //     background-color: #555;
+    // }
+}
 </style>

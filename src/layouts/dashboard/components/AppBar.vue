@@ -99,7 +99,7 @@
                         class="mb-2 mt-2"
                     />
 
-                    <app-bar-item to="/logout" v-else :key="`item-${i}`">
+                    <app-bar-item :to="p.to" v-else :key="`item-${i}`">
                         <v-list-item-title v-text="p.title" />
                     </app-bar-item>
                 </template>
@@ -165,9 +165,9 @@ export default {
             "Another one"
         ],
         profile: [
-            { title: "Hồ sơ cá nhân" },
+            { title: "Hồ sơ cá nhân", to: "/profile" },
             { divider: true },
-            { title: "Đăng xuất" }
+            { title: "Đăng xuất", to: "/logout" }
         ]
     }),
 
