@@ -21,10 +21,7 @@
                     <div
                         class="body-1 font-weight-light pt-6 pt-md-0 text-center"
                     >
-                        <span class="font-weight-bold"
-                            >Copyright &copy; 2020 SKYMAP GLOBAL.</span
-                        >
-                        All rights reserved.
+                        Logistic Management System
                     </div>
                 </v-col>
                 <v-spacer class="hidden-sm-and-down" />
@@ -32,7 +29,10 @@
                     <div
                         class="body-1 font-weight-light pt-6 pt-md-0 text-center"
                     >
-                        Logistic Management System
+                        <span class="font-weight-bold"
+                            >Copyright &copy; 2020 SKYMAP GLOBAL.</span
+                        >
+                        All rights reserved.
                     </div>
                 </v-col>
             </v-row>
