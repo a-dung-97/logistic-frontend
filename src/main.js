@@ -21,11 +21,15 @@ import "./plugins/chartist";
 import "./plugins/vee-validate";
 import "./plugins/vue-world-map";
 import vuetify from "./plugins/vuetify";
+import VuetifyConfirm from "vuetify-confirm";
+Vue.use(VuetifyConfirm, { vuetify });
 import i18n from "./i18n";
-
+// Vue.mixin(CURLMixin);
 // import Vuelidate from "vuelidate";
 // Vue.use(Vuelidate);
 import "@/permission"; // permission control
+import Vuelidate from "vuelidate";
+Vue.use(Vuelidate);
 Vue.prototype.$snackbar = (text, type = "info", timeout = 2000) => {
     store.dispatch("app/showSnackbar", { text, type, timeout });
 };

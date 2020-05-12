@@ -1,6 +1,8 @@
 import axios from "axios";
 import store from "@/store";
 import { getToken } from "@/utils/auth";
+import NProgress from "nprogress"; // progress bar
+
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
     // withCredentials: true, // send cookies when cross-domain requests
@@ -69,37 +71,32 @@ service.interceptors.response.use(
         //}
     },
     error => {
-        // if (error.response.status === 422) {
-        //     for (let field in error.response.data.errors) {
-        //         error.response.data.errors[field].forEach(error => {
-        //             Message({
-        //                 message: error,
-        //                 type: 'error',
-        //                 duration: 2 * 1000
-        //             })
-        //         })
-        //     }
-        // }
-        // else if (error.response.data.message == "Unauthenticated.") {
-        //     // to re-login
-        //     MessageBox.confirm('Bạn đã đăng xuất', 'Xác nhận đăng xuất', {
-        //         confirmButtonText: 'Đăng nhập lại',
-        //         cancelButtonText: 'Hủy bỏ',
-        //         type: 'warning'
-        //     }).then(() => {
-        //         store.dispatch('user/resetToken').then(() => {
-        //             location.reload()
-        //         })
-        //     })
-        // }
-        // else if (error.response.status === 400)
-        //     Message({
-        //         message: error.response.data.message,
-        //         type: 'error',
-        //         duration: 3 * 1000
-        //     })
-        // else if (error.response.status === 404)
-        //     router.push('/404');
+        if (error.response.status === 422) {
+            store.dispatch("app/showSnackbar", {
+                text:
+                    error.response.data.errors[
+                        Object.keys(error.response.data.errors)[0]
+                    ][0],
+                type: "error",
+                timeout: 2000
+            });
+        } else if (error.response.data.message == "Unauthenticated.") {
+            // to re-login
+            store.dispatch("app/showSnackbar", {
+                text: "Bạn đã đăng xuất",
+                type: "error",
+                timeout: 2000
+            });
+            store.dispatch("user/resetToken").then(() => {
+                location.reload();
+            });
+        } else if (error.response.status === 400)
+            store.dispatch("app/showSnackbar", {
+                text: error.response.data.message,
+                type: "error",
+                timeout: 2000
+            });
+        else if (error.response.status === 404) router.push("/404");
         return Promise.reject(error);
     }
 );

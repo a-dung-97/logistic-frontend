@@ -47,3 +47,10 @@ export function destroy(id) {
         method: "delete"
     });
 }
+export function store(data) {
+    return request({
+        url: `/users`,
+        method: "post",
+        data
+    });
+}

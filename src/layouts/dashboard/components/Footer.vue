@@ -1,5 +1,5 @@
 <template>
-    <v-footer id="dashboard-core-footer">
+    <v-footer fixed id="dashboard-core-footer" padless class="pt-0 pb-0">
         <v-container>
             <v-row align="center" no-gutters>
                 <!-- <v-col
