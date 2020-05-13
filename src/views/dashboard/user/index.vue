@@ -2,13 +2,10 @@
     <v-container class="my-container" fluid>
         <v-row>
             <v-col class="pb-0" cols="12">
-                <Search
-                    :params="params"
-                    @handle-search="getData(1)"
-                    @handle-reset="reset"
-            /></v-col>
-            <v-col class="pt-0" cols="12"
-                ><DataTable
+                <Search :params="params" @handle-search="getData(1)" @handle-reset="reset" />
+            </v-col>
+            <v-col class="pt-0" cols="12">
+                <DataTable
                     :form="form"
                     :table-data="tableData"
                     @handle-edit="showDialogForm('edit', $event)"
@@ -21,12 +18,14 @@
                 <Pagination
                     :length="pagination.last_page"
                     :params="params"
-                    @handle-change="getData"
+                    @handle-change-page="getData"
+                    @handle-change-per-page="getData(1)"
                 />
             </v-col>
         </v-row>
         <DialogForm
-            @reload="getData(1)"
+            @handle-created="getData(1)"
+            @handle-updated="getData()"
             :options="options"
             :show-dialog.sync="showDialog"
             :editing="editing"
@@ -63,7 +62,7 @@ export default {
                 roles: []
             },
             form: {
-                id: "",
+                id: undefined,
                 name: "",
                 username: "",
                 email: "",
@@ -76,8 +75,9 @@ export default {
         };
     },
     methods: {
-        async getData() {
+        async getData(page = null) {
             try {
+                if (page) this.params.page = page;
                 this.loading = true;
                 const { data, meta } = await index(this.params);
                 this.tableData = data;
@@ -104,6 +104,7 @@ export default {
                 }
             } else {
                 for (let field in this.form) this.form[field] = "";
+                this.form.id = undefined;
                 this.form.active = true;
                 this.editing = false;
             }

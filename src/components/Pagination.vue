@@ -6,7 +6,7 @@
                 :items="items"
                 item-value="value"
                 v-model="params.per_page"
-                @change="$emit('handle-change')"
+                @change="$emit('handle-change-per-page')"
             ></v-select>
         </v-col>
         <v-col cols="12" sm="10" md="11">
@@ -15,7 +15,7 @@
                 v-model="params.page"
                 :length="length"
                 total-visible="10"
-                @input="$emit('handle-change')"
+                @input="$emit('handle-change-page')"
             ></v-pagination>
         </v-col>
     </v-row>
