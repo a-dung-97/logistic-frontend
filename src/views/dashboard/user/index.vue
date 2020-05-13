@@ -25,7 +25,7 @@
         </v-row>
         <DialogForm
             @handle-created="getData(1)"
-            @handle-updated="getData()"
+            @handle-updated="getData"
             :options="options"
             :show-dialog.sync="showDialog"
             :editing="editing"

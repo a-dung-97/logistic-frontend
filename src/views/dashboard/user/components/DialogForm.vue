@@ -271,7 +271,7 @@ export default {
                 "success"
             );
             this.closeDialog();
-            this.$emit(editing ? "handle-updated" : "handle-created");
+            this.$emit(this.editing ? "handle-updated" : "handle-created");
         }
     }
 };
