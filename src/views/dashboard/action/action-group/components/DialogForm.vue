@@ -11,34 +11,10 @@
                             <v-text-field
                                 v-model="form.name"
                                 :error-messages="nameErrors"
-                                label="Tên quyền*"
+                                label="Tên*"
                                 dense
                                 @input="$v.form.name.$touch()"
                                 @blur="$v.form.name.$touch()"
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col cols="12" sm="12">
-                            <v-text-field
-                                label="Mã quyền*"
-                                v-model="form.code"
-                                dense
-                                :error-messages="codeErrors"
-                                @input="$v.form.code.$touch()"
-                                @blur="$v.form.code.$touch()"
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col cols="12" sm="12">
-                            <v-text-field
-                                label="Home URL*"
-                                v-model="form.home_url"
-                                dense
-                                :error-messages="homeUrlErrors"
-                                @input="$v.form.home_url.$touch()"
-                                @blur="$v.form.home_url.$touch()"
                             ></v-text-field>
                         </v-col>
                     </v-row>
@@ -73,8 +49,14 @@
     </v-dialog>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators";
-import { store, update } from "@/api/system/role";
+import {
+    required,
+    minLength,
+    sameAs,
+    between,
+    email
+} from "vuelidate/lib/validators";
+import { store, update } from "@/api/system/action-group";
 
 export default {
     props: ["form", "editing", "showDialog", "options"],
@@ -87,12 +69,6 @@ export default {
             form: {
                 name: {
                     required
-                },
-                code: {
-                    required
-                },
-                home_url: {
-                    required
                 }
             }
         };
@@ -100,25 +76,13 @@ export default {
 
     computed: {
         title() {
-            return this.editing ? "Sửa quyền" : "Thêm quyền";
+            return this.editing ? "Sửa người dùng" : "Thêm người dùng";
         },
         nameErrors() {
             const errors = [];
             if (!this.$v.form.name.$dirty) return errors;
-            !this.$v.form.name.required && errors.push("Hãy nhập tên quyền");
-            return errors;
-        },
-        codeErrors() {
-            const errors = [];
-            if (!this.$v.form.code.$dirty) return errors;
-            !this.$v.form.code.required && errors.push("Hãy nhập mã quyền");
-            return errors;
-        },
-        homeUrlErrors() {
-            const errors = [];
-            if (!this.$v.form.home_url.$dirty) return errors;
-            !this.$v.form.home_url.required &&
-                errors.push("Hãy nhập đường dẫn trang chủ");
+            !this.$v.form.name.required &&
+                errors.push("Hãy nhập tên nhóm chức năng");
             return errors;
         }
     },

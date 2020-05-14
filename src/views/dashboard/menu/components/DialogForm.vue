@@ -9,46 +9,67 @@
                     <v-row>
                         <v-col cols="12" sm="12">
                             <v-text-field
-                                v-model="form.name"
-                                :error-messages="nameErrors"
-                                label="Tên quyền*"
+                                v-model="form.title"
+                                :error-messages="titleErrors"
+                                label="Tên*"
                                 dense
-                                @input="$v.form.name.$touch()"
-                                @blur="$v.form.name.$touch()"
+                                @input="$v.form.title.$touch()"
+                                @blur="$v.form.title.$touch()"
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="12">
                             <v-text-field
-                                label="Mã quyền*"
-                                v-model="form.code"
+                                label="Đường dẫn*"
+                                v-model="form.to"
                                 dense
-                                :error-messages="codeErrors"
-                                @input="$v.form.code.$touch()"
-                                @blur="$v.form.code.$touch()"
+                                :error-messages="toErrors"
+                                @input="$v.form.to.$touch()"
+                                @blur="$v.form.to.$touch()"
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="12">
                             <v-text-field
-                                label="Home URL*"
-                                v-model="form.home_url"
+                                label="Icon"
+                                v-model="form.icon"
                                 dense
-                                :error-messages="homeUrlErrors"
-                                @input="$v.form.home_url.$touch()"
-                                @blur="$v.form.home_url.$touch()"
+                                :append-icon="form.icon"
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="12">
-                            <v-text-field
-                                label="Mô tả"
-                                v-model="form.description"
-                                dense
-                            ></v-text-field>
+                            <v-switch
+                                v-model="hiddenMenu"
+                                label="Menu ẩn"
+                            ></v-switch>
+                        </v-col>
+                    </v-row>
+                    <v-row v-if="!hiddenMenu">
+                        <v-col cols="12" sm="12">
+                            <v-slider
+                                v-model="form.priority"
+                                min="1"
+                                max="100"
+                                label="Độ ưu tiên"
+                                :thumb-size="24"
+                                thumb-label="always"
+                            ></v-slider>
+                        </v-col>
+                    </v-row>
+                    <v-row v-if="!hiddenMenu">
+                        <v-col cols="12" sm="12">
+                            <v-select
+                                v-model="form.menu_id"
+                                :items="menus"
+                                item-text="title"
+                                item-value="id"
+                                label="Menu cha"
+                                clearable
+                            ></v-select>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -74,58 +95,72 @@
 </template>
 <script>
 import { required } from "vuelidate/lib/validators";
-import { store, update } from "@/api/system/role";
+import { store, update } from "@/api/system/menu";
+import { index } from "@/api/system/menu";
 
 export default {
     props: ["form", "editing", "showDialog", "options"],
     data: () => ({
         dialog: true,
-        loading: false
+        loading: false,
+        hiddenMenu: false,
+        menus: []
     }),
     validations() {
         return {
             form: {
-                name: {
+                to: {
                     required
                 },
-                code: {
+                title: {
                     required
                 },
-                home_url: {
+                priority: {
                     required
                 }
             }
         };
     },
-
+    watch: {
+        showDialog(val) {
+            if (val) this.getParentMenus();
+            if (this.form.priority == 0 && editing) this.hiddenMenu = true;
+        },
+        hiddenMenu(val) {
+            if (val) {
+                this.form.priority = 0;
+                this.form.menu_id = "";
+            }
+        }
+    },
     computed: {
         title() {
-            return this.editing ? "Sửa quyền" : "Thêm quyền";
+            return this.editing ? "Sửa người dùng" : "Thêm người dùng";
         },
-        nameErrors() {
+        titleErrors() {
             const errors = [];
-            if (!this.$v.form.name.$dirty) return errors;
-            !this.$v.form.name.required && errors.push("Hãy nhập tên quyền");
+            if (!this.$v.form.title.$dirty) return errors;
+            !this.$v.form.title.required && errors.push("Hãy nhập tên menu");
             return errors;
         },
-        codeErrors() {
+        toErrors() {
             const errors = [];
-            if (!this.$v.form.code.$dirty) return errors;
-            !this.$v.form.code.required && errors.push("Hãy nhập mã quyền");
+            if (!this.$v.form.to.$dirty) return errors;
+            !this.$v.form.to.required && errors.push("Hãy nhập đường dẫn");
             return errors;
         },
-        homeUrlErrors() {
+        priorityErrors() {
             const errors = [];
-            if (!this.$v.form.home_url.$dirty) return errors;
-            !this.$v.form.home_url.required &&
-                errors.push("Hãy nhập đường dẫn trang chủ");
-            return errors;
+            if (!this.$v.form.priority.$dirty) return errors;
+            !this.$v.form.priority.required &&
+                errors.push("Hãy nhập độ ưu tiên");
         }
     },
     methods: {
         closeDialog() {
             this.$emit("update:showDialog", false);
             this.$v.form.$reset();
+            this.hiddenMenu = false;
         },
         async createData() {
             try {
@@ -148,6 +183,7 @@ export default {
                     return;
                 } else {
                     this.loading = true;
+                    if (this.form.menu_id === undefined) this.form.menu_id = "";
                     await update(this.form.id, this.form);
                     this.reload();
                 }
@@ -163,6 +199,18 @@ export default {
             );
             this.closeDialog();
             this.$emit(this.editing ? "updated" : "created");
+        },
+        async getParentMenus() {
+            try {
+                const { data } = await index({
+                    page: 1,
+                    per_page: 9999,
+                    parent_menu: true
+                });
+                this.menus = data;
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 };
