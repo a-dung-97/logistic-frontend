@@ -17,7 +17,6 @@
                         @handle-edit="showDialogForm('edit', $event)"
                         @handle-create="showDialogForm('create')"
                         @handle-delete="getData()"
-                        :loading.sync="loading"
                     />
                 </v-col>
                 <v-col cols="12">
@@ -30,8 +29,8 @@
                 </v-col>
             </v-row>
             <DialogForm
-                @handle-created="getData(1)"
-                @handle-updated="getData"
+                @created="getData(1)"
+                @updated="getData"
                 :options="options"
                 :show-dialog.sync="showDialog"
                 :editing="editing"

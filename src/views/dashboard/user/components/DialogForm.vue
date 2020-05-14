@@ -76,7 +76,10 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="6">
-                            <v-switch v-model="form.active" label="Active"></v-switch>
+                            <v-switch
+                                v-model="form.active"
+                                label="Active"
+                            ></v-switch>
                         </v-col>
                         <v-col cols="12" sm="6">
                             <v-select
@@ -96,9 +99,19 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDialog">Huỷ</v-btn>
-                <v-btn v-if="!editing" color="blue darken-1" text @click="createData">Thêm</v-btn>
-                <v-btn v-else color="blue darken-1" text @click="updateData">Cập nhật</v-btn>
+                <v-btn color="blue darken-1" text @click="closeDialog"
+                    >Huỷ</v-btn
+                >
+                <v-btn
+                    v-if="!editing"
+                    color="blue darken-1"
+                    text
+                    @click="createData"
+                    >Thêm</v-btn
+                >
+                <v-btn v-else color="blue darken-1" text @click="updateData"
+                    >Cập nhật</v-btn
+                >
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -271,7 +284,7 @@ export default {
                 "success"
             );
             this.closeDialog();
-            this.$emit(this.editing ? "handle-updated" : "handle-created");
+            this.$emit(this.editing ? "updated" : "created");
         }
     }
 };

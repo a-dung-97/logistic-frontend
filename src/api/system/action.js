@@ -2,35 +2,35 @@ import request from "@/utils/request";
 
 export function index(params) {
     return request({
-        url: "/roles",
+        url: "/actions",
         method: "get",
         params
     });
 }
 export function store(data) {
     return request({
-        url: "/roles",
+        url: "/actions",
         method: "post",
         data
     });
 }
 export function update(id, data) {
     return request({
-        url: `/roles/${id}`,
+        url: `/actions/${id}`,
         method: "put",
         data
     });
 }
-export function updateActions(id, data) {
-    return request({
-        url: `/roles/${id}/actions`,
-        method: "put",
-        data
-    });
-}
+// export function updateMenu(data, id) {
+//     return request({
+//         url: `/actions/${id}/menu`,
+//         method: "put",
+//         data
+//     });
+// }
 // export function getMenus(id) {
 //     return request({
-//         url: `/roles/${id}/menu`,
+//         url: `/actions/${id}/menu`,
 //         method: "get"
 //     });
 // }
@@ -44,7 +44,7 @@ export function updateActions(id, data) {
 // }
 export function destroy(id) {
     return request({
-        url: `/roles/${id}`,
+        url: `/actions/${id}`,
         method: "delete"
     });
 }
