@@ -5,12 +5,11 @@ export default {
             defaultParams: {}
         };
     },
-    methods: {
-        reset() {
-            this.params = { ...this.defaultParams };
-        }
-    },
+    methods: {},
     created() {
-        this.params = { ...this.defaultParams };
+        if (this.params) console.log(this.$route);
+        // if (!Object.keys(this.$route.query).length == 0)
+        //     this.params = { ...this.defaultParams };
+        // else this.params = { ...this.$route.query };
     }
 };

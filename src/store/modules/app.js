@@ -7,7 +7,8 @@ const state = {
     drawer: null,
     snackbarShow: false,
     snackbarText: "",
-    snackbarType: "info"
+    snackbarType: "info",
+    loader: false
 };
 const mutations = {
     SET_BAR_IMAGE(state, payload) {
@@ -27,6 +28,9 @@ const mutations = {
     },
     SET_SNACKBAR_TYPE(state, payload) {
         state.snackbarType = payload;
+    },
+    SET_LOADER(state, payload) {
+        state.loader = payload;
     }
 };
 const actions = {
@@ -39,6 +43,9 @@ const actions = {
     },
     setScrim({ commit }, payload) {
         commit("SET_SCRIM", payload);
+    },
+    setLoader({ commit }, payload) {
+        commit("SET_LOADER", payload);
     },
     showSnackbar({ commit }, { text, type = "info", timeout = 6 }) {
         commit("SET_SNACKBAR_TEXT", text);

@@ -17,7 +17,8 @@ const getters = {
     // position: state => state.user.position,
     // department: state => state.user.department,
     email: state => state.user.email,
-    home_url: state => state.user.home_url
+    home_url: state => state.user.home_url,
+    loader: state => state.app.loader
     // tiny_drive_token: state => state.user.tiny_drive_token
 };
 export default getters;

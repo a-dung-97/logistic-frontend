@@ -1,37 +1,44 @@
 <template>
-    <v-container class="my-container" fluid>
-        <v-row>
-            <v-col class="pb-0" cols="12">
-                <Search :params="params" @handle-search="getData(1)" @handle-reset="reset" />
-            </v-col>
-            <v-col class="pt-0" cols="12">
-                <DataTable
-                    :form="form"
-                    :table-data="tableData"
-                    @handle-edit="showDialogForm('edit', $event)"
-                    @handle-create="showDialogForm('create')"
-                    @handle-delete="getData()"
-                    :loading.sync="loading"
-                />
-            </v-col>
-            <v-col cols="12">
-                <Pagination
-                    :length="pagination.last_page"
-                    :params="params"
-                    @handle-change-page="getData"
-                    @handle-change-per-page="getData(1)"
-                />
-            </v-col>
-        </v-row>
-        <DialogForm
-            @handle-created="getData(1)"
-            @handle-updated="getData"
-            :options="options"
-            :show-dialog.sync="showDialog"
-            :editing="editing"
-            :form="form"
-        />
-    </v-container>
+    <v-card>
+        <v-container class="my-container" fluid>
+            <v-row>
+                <v-col class="pb-0" cols="12">
+                    <Search
+                        :params="params"
+                        @handle-search="getData(1)"
+                        @handle-reset="reset"
+                        :options="options"
+                    />
+                </v-col>
+                <v-col class="pt-0" cols="12">
+                    <DataTable
+                        :form="form"
+                        :table-data="tableData"
+                        @handle-edit="showDialogForm('edit', $event)"
+                        @handle-create="showDialogForm('create')"
+                        @handle-delete="getData()"
+                        :loading.sync="loading"
+                    />
+                </v-col>
+                <v-col cols="12">
+                    <Pagination
+                        :length="pagination.last_page"
+                        :params="params"
+                        @handle-change-page="getData"
+                        @handle-change-per-page="getData(1)"
+                    />
+                </v-col>
+            </v-row>
+            <DialogForm
+                @handle-created="getData(1)"
+                @handle-updated="getData"
+                :options="options"
+                :show-dialog.sync="showDialog"
+                :editing="editing"
+                :form="form"
+            />
+        </v-container>
+    </v-card>
 </template>
 
 <script>
@@ -45,13 +52,13 @@ export default {
     components: { DataTable, Search, DialogForm, Pagination },
     data() {
         return {
-            loading: false,
             showDialog: false,
             editing: false,
             defaultParams: {
                 search: "",
                 page: 1,
-                per_page: 20
+                per_page: 20,
+                role_id: ""
             },
             params: {},
             pagination: {
@@ -77,15 +84,15 @@ export default {
     methods: {
         async getData(page = null) {
             try {
+                this.$loader(true);
                 if (page) this.params.page = page;
-                this.loading = true;
                 const { data, meta } = await index(this.params);
                 this.tableData = data;
                 this.pagination = meta;
             } catch (error) {
                 console.log(error);
             } finally {
-                this.loading = false;
+                this.$loader(false);
             }
         },
         async getOption() {

@@ -25,17 +25,34 @@
                 </v-btn>
             </v-toolbar>
         </template>
-        <template v-slot:item.actions="{ item }">
-            <v-icon small class="mr-2" @click="$emit('handle-edit', item)">
-                mdi-pencil
-            </v-icon>
-            <v-icon small @click="handleDelete(item.id)">
-                mdi-delete
-            </v-icon>
-        </template>
         <template v-slot:item.active="{ item }">
             <v-chip v-if="item.active" color="success" dark>Hoạt động</v-chip>
             <v-chip v-else color="warning" dark>Không hoạt động</v-chip>
+        </template>
+        <template v-slot:item.actions="{ item }">
+            <!-- <v-icon small class="mr-2" @click="$emit('handle-edit', item)"
+                >mdi-pencil</v-icon
+            > -->
+            <v-btn
+                x-small
+                @click="$emit('handle-edit', item)"
+                fab
+                dark
+                color="primary"
+            >
+                <v-icon dark>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn
+                x-small
+                @click="handleDelete(item.id)"
+                class="ml-2"
+                fab
+                dark
+                color="red"
+            >
+                <v-icon dark>mdi-delete</v-icon>
+            </v-btn>
+            <!-- <v-icon small @click="handleDelete(item.id)">mdi-delete</v-icon> -->
         </template>
         <template v-slot:no-data>
             <v-btn color="primary" @click="$emit('handle-reset')"

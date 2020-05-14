@@ -240,7 +240,7 @@ export default {
         ...mapGetters({ items1: "menus" }),
         drawer: {
             get() {
-                return this.$store.state.drawer;
+                return this.$store.state.app.drawer;
             },
             set(val) {
                 this.$store.commit("app/SET_DRAWER", val);

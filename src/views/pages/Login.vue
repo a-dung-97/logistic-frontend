@@ -11,9 +11,7 @@
                 >
                     <template v-slot:heading>
                         <div class="text-center">
-                            <h1 class="display-2 font-weight-bold mb-2">
-                                Đăng nhập với
-                            </h1>
+                            <h1 class="display-2 font-weight-bold mb-2">Đăng nhập với</h1>
 
                             <v-btn
                                 v-for="(social, i) in socials"
@@ -32,9 +30,7 @@
                     <v-card-text class="text-center">
                         <div
                             class="text-center grey--text body-1 font-weight-light"
-                        >
-                            hoặc nhập tài khoản và mật khẩu
-                        </div>
+                        >hoặc nhập tài khoản và mật khẩu</div>
                         <v-form ref="form" lazy-validation v-model="valid">
                             <v-text-field
                                 color="secondary"
@@ -62,14 +58,12 @@
 
                         <pages-btn
                             large
-                            color=""
+                            color
                             depressed
                             @click="login"
                             :loading="loading"
                             class="v-btn--text success--text"
-                        >
-                            Đăng nhập
-                        </pages-btn>
+                        >Đăng nhập</pages-btn>
                     </v-card-text>
                 </base-material-card>
             </v-slide-y-transition>
@@ -86,7 +80,7 @@
             :vertical="mode === 'vertical'"
         >
             {{ text }}
-        </v-snackbar> -->
+        </v-snackbar>-->
     </v-container>
 </template>
 
@@ -144,7 +138,7 @@ export default {
                         });
                 })
                 .catch(error => {
-                    console.log(error);
+                    this.loading = false;
                     if (error.response.status === 401) {
                         this.$snackbar("Sai tài khoản hoặc mật khẩu", "error");
                         this.loading = false;

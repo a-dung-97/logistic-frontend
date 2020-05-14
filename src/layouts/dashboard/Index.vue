@@ -8,6 +8,7 @@
 
         <dashboard-core-settings v-model="expandOnHover" />
         <Snackbar />
+        <Loader />
     </v-app>
 </template>
 
@@ -19,7 +20,8 @@ export default {
         DashboardCoreDrawer: () => import("./components/Drawer"),
         DashboardCoreSettings: () => import("./components/Settings"),
         DashboardCoreView: () => import("./components/View"),
-        Snackbar: () => import("../../components/SnackBar")
+        Snackbar: () => import("../../components/SnackBar"),
+        Loader: () => import("../../components/Loader")
     },
 
     data: () => ({
