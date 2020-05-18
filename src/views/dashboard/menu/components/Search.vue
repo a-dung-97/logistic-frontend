@@ -23,7 +23,7 @@
                 >Tìm kiếm</v-btn
             >
             <v-btn
-                class="float-md-right "
+                class="float-md-right  mr-4"
                 @click="$emit('handle-reset')"
                 color="primary"
                 >Reset</v-btn

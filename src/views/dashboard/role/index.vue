@@ -1,50 +1,48 @@
 <template>
-    <v-card class="my-container">
-        <v-container fluid>
-            <v-row>
-                <v-col class="pb-0" cols="12">
-                    <Search
-                        :params="params"
-                        @handle-search="getData(1)"
-                        @handle-reset="reset"
-                        :options="options"
-                    />
-                </v-col>
-                <v-col class="pt-0" cols="12">
-                    <DataTable
-                        :form="form"
-                        :table-data="tableData"
-                        @handle-edit="showDialogForm('edit', $event)"
-                        @handle-create="showDialogForm('create')"
-                        @handle-delete="getData()"
-                        @handle-change-actions="showSelectActionsDialog"
-                    />
-                </v-col>
-                <v-col cols="12">
-                    <Pagination
-                        :length="pagination.last_page"
-                        :params="params"
-                        @handle-change-page="getData"
-                        @handle-change-per-page="getData(1)"
-                    />
-                </v-col>
-            </v-row>
-            <DialogForm
-                @created="getData(1)"
-                @updated="getData"
-                :options="options"
-                :show-dialog.sync="showDialog"
-                :editing="editing"
-                :form="form"
-            />
-            <SelectAction
-                :current-role="currentRole"
-                :show-dialog.sync="showDialog1"
-                @updated="getData"
-                :options="options"
-            />
-        </v-container>
-    </v-card>
+    <v-container fluid>
+        <v-row>
+            <v-col class="pb-0" cols="12">
+                <Search
+                    :params="params"
+                    @handle-search="getData(1)"
+                    @handle-reset="reset"
+                    :options="options"
+                />
+            </v-col>
+            <v-col class="pt-0" cols="12">
+                <DataTable
+                    :form="form"
+                    :table-data="tableData"
+                    @handle-edit="showDialogForm('edit', $event)"
+                    @handle-create="showDialogForm('create')"
+                    @handle-delete="getData()"
+                    @handle-change-actions="showSelectActionsDialog"
+                />
+            </v-col>
+            <v-col cols="12">
+                <Pagination
+                    :length="pagination.last_page"
+                    :params="params"
+                    @handle-change-page="getData"
+                    @handle-change-per-page="getData(1)"
+                />
+            </v-col>
+        </v-row>
+        <DialogForm
+            @created="getData(1)"
+            @updated="getData"
+            :options="options"
+            :show-dialog.sync="showDialog"
+            :editing="editing"
+            :form="form"
+        />
+        <SelectAction
+            :current-role="currentRole"
+            :show-dialog.sync="showDialog1"
+            @updated="getData"
+            :options="options"
+        />
+    </v-container>
 </template>
 
 <script>
