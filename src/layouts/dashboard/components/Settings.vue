@@ -236,7 +236,7 @@ export default {
             this.setBarImage(val);
         },
         scrim(val) {
-            this.$store.commit("SET_SCRIM", val);
+            this.$store.commit("app/SET_SCRIM", val);
         }
     },
 

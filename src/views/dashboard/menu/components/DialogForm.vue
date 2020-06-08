@@ -124,7 +124,7 @@ export default {
     watch: {
         showDialog(val) {
             if (val) this.getParentMenus();
-            if (this.form.priority == 0 && editing) this.hiddenMenu = true;
+            if (this.form.priority == 0 && this.editing) this.hiddenMenu = true;
         },
         hiddenMenu(val) {
             if (val) {
@@ -135,7 +135,7 @@ export default {
     },
     computed: {
         title() {
-            return this.editing ? "Sửa người dùng" : "Thêm người dùng";
+            return this.editing ? "Sửa menu" : "Thêm menu";
         },
         titleErrors() {
             const errors = [];
