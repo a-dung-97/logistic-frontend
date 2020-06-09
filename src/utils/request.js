@@ -96,7 +96,13 @@ service.interceptors.response.use(
                 type: "error",
                 timeout: 2000
             });
-        else if (error.response.status === 404) router.push("/404");
+        else if (error.response.status === 401) {
+            store.dispatch("app/showSnackbar", {
+                text: error.response.data.message,
+                type: "error",
+                timeout: 2000
+            });
+        } else if (error.response.status === 404) router.push("/404");
         return Promise.reject(error);
     }
 );

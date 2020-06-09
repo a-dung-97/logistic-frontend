@@ -58,7 +58,15 @@ const actions = {
                 {
                     path: "/",
                     component: () => import("@/layouts/dashboard/Index"),
-                    children: asyncRoutes
+                    children: [
+                        ...asyncRoutes,
+                        {
+                            path: "/profile",
+                            name: "Hồ sơ cá nhân",
+                            component: () =>
+                                import("@/views/dashboard/profile/index")
+                        }
+                    ]
                 },
                 {
                     path: "*",

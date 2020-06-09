@@ -22,9 +22,7 @@
                 class="align-self-center"
                 color="grey"
             >
-                <v-img
-                    src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/avatar.jpg"
-                />
+                <v-img :src="item.url" />
             </v-list-item-avatar>
 
             <v-list-item-content>

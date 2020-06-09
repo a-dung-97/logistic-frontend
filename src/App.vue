@@ -9,12 +9,13 @@ export default {
 </script>
 <style lang="scss">
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
     background-color: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-    border-radius: 8px;
+    // border-radius: 8px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-    background-color: #555;
+    background-color: #eee;
 }
 </style>

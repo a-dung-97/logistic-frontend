@@ -236,7 +236,7 @@ export default {
     }),
 
     computed: {
-        ...mapGetters(["barColor", "barImage", "name"]),
+        ...mapGetters(["barColor", "barImage", "name", "avatar"]),
         ...mapGetters({ items1: "menus" }),
         drawer: {
             get() {
@@ -252,6 +252,9 @@ export default {
         profile() {
             return {
                 avatar: true,
+                url:
+                    this.avatar ||
+                    `https://ui-avatars.com/api/?name=${this.name}`,
                 group: "",
                 title: this.name,
                 children: [

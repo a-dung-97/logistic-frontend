@@ -47,7 +47,7 @@ const actions = {
     setLoader({ commit }, payload) {
         commit("SET_LOADER", payload);
     },
-    showSnackbar({ commit }, { text, type = "info", timeout = 6 }) {
+    showSnackbar({ commit }, { text, type, timeout = 6 }) {
         commit("SET_SNACKBAR_TEXT", text);
         commit("SET_SNACKBAR_TYPE", type);
         commit("SET_SNACKBAR_SHOW", true);

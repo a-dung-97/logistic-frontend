@@ -54,3 +54,17 @@ export function store(data) {
         data
     });
 }
+export function changePassword(data) {
+    return request({
+        url: "/auth/password/change",
+        method: "post",
+        data
+    });
+}
+export function changeAvatar(data) {
+    return request({
+        url: "/users/avatar",
+        method: "post",
+        data
+    });
+}

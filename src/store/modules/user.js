@@ -9,6 +9,7 @@ const state = {
     roles: [],
     menus: [],
     routes: [],
+    avatar: "",
     phone_number: "",
     username: "",
     email: "",
@@ -45,6 +46,9 @@ const mutations = {
     },
     SET_HOME_URL: (state, home_url) => {
         state.home_url = home_url;
+    },
+    SET_AVATAR: (state, avatar) => {
+        state.avatar = avatar && process.env.VUE_APP_SERVER + avatar;
     }
 };
 
@@ -70,11 +74,9 @@ const actions = {
             getInfo(state.token)
                 .then(response => {
                     const { data } = response;
-
                     if (!data) {
                         reject("Verification failed, please Login again.");
                     }
-
                     const {
                         id,
                         roles,
@@ -84,6 +86,7 @@ const actions = {
                         username,
                         menus,
                         routes,
+                        avatar,
                         home_url
                     } = data;
 
@@ -101,6 +104,7 @@ const actions = {
                     commit("SET_PHONE_NUMBER", phone_number);
                     commit("SET_EMAIL", email);
                     commit("SET_HOME_URL", home_url);
+                    commit("SET_AVATAR", avatar);
                     resolve(data);
                 })
                 .catch(error => {

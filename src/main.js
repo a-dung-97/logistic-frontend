@@ -31,7 +31,7 @@ import i18n from "./i18n";
 import "@/permission"; // permission control
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
-Vue.prototype.$snackbar = (text, type = "info", timeout = 2000) => {
+Vue.prototype.$snackbar = (text, type, timeout = 2000) => {
     store.dispatch("app/showSnackbar", { text, type, timeout });
 };
 Vue.prototype.$loader = loader => {
