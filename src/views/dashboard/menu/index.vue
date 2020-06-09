@@ -52,6 +52,7 @@ export default {
             editing: false,
             defaultParams: {
                 search: "",
+                menu_id: "",
                 page: 1,
                 per_page: 20
             },
@@ -60,7 +61,9 @@ export default {
                 last_page: 1
             },
             tableData: [],
-            options: {},
+            options: {
+                menus: []
+            },
             form: {
                 id: undefined,
                 title: "",
@@ -86,12 +89,14 @@ export default {
             }
         },
         async getOption() {
-            // try {
-            //     const results = await Promise.all([getRoles()]);
-            //     [this.options.menus] = results.map(item => item.data);
-            // } catch (error) {
-            //     console.log(error);
-            // }
+            try {
+                const results = await Promise.all([
+                    index({ parent_menu: true })
+                ]);
+                [this.options.menus] = results.map(item => item.data);
+            } catch (error) {
+                console.log(error);
+            }
         },
         showDialogForm(mode, data = null) {
             if (mode == "edit") {

@@ -12,6 +12,18 @@
                         v-model="params.search"
                     ></v-text-field>
                 </v-col>
+                <v-col cols="12" md="6" lg="4" class="pb-0">
+                    <v-select
+                        v-model="params.menu_id"
+                        :items="options.menus"
+                        item-text="title"
+                        item-value="id"
+                        label="Menu cha"
+                        clearable
+                        outlined
+                        dense
+                    ></v-select>
+                </v-col>
             </v-row>
         </v-col>
         <v-col cols="12" style="padding-top:20px" md="4">

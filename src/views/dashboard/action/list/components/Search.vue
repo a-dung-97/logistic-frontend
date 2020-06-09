@@ -15,11 +15,11 @@
 
                 <v-col cols="12" md="6" lg="4" class="pb-0">
                     <v-select
-                        v-model="params.role_id"
-                        :items="options.roles"
+                        v-model="params.action_group_id"
+                        :items="options.groups"
                         item-text="name"
                         item-value="id"
-                        label="Quyền"
+                        label="Nhóm"
                         clearable
                         outlined
                         dense
