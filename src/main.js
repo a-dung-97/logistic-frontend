@@ -24,10 +24,12 @@ import vuetify from "./plugins/vuetify";
 import VuetifyConfirm from "vuetify-confirm";
 import CURLMixin from "./mixins/crud";
 Vue.use(VuetifyConfirm, { vuetify });
-import imageViewer from "vue-image-viewer";
-
-Vue.use(imageViewer);
+// import imageViewer from "vue-image-viewer";
+// Vue.use(imageViewer);
 import i18n from "./i18n";
+
+import imageViewer from "image-viewer-vue";
+Vue.use(imageViewer);
 // Vue.mixin(CURLMixin);
 // import Vuelidate from "vuelidate";
 // Vue.use(Vuelidate);
