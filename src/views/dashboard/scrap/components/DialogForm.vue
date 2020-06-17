@@ -11,7 +11,7 @@
                             <v-text-field
                                 v-model="form.name"
                                 :error-messages="nameErrors"
-                                label="Tên quyền*"
+                                label="Tên phế liệu*"
                                 dense
                                 @input="$v.form.name.$touch()"
                                 @blur="$v.form.name.$touch()"
@@ -21,7 +21,7 @@
                     <v-row>
                         <v-col cols="12" sm="12">
                             <v-text-field
-                                label="Mã quyền*"
+                                label="Mã phế liệu*"
                                 v-model="form.code"
                                 dense
                                 :error-messages="codeErrors"
@@ -32,35 +32,38 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="12">
-                            <v-text-field
-                                label="Home URL*"
-                                v-model="form.home_url"
+                            <v-textarea
+                                label="Mô tả"
+                                type="textarea"
+                                v-model="form.description"
                                 dense
-                                :error-messages="homeUrlErrors"
-                                @input="$v.form.home_url.$touch()"
-                                @blur="$v.form.home_url.$touch()"
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col cols="12" sm="12">
-                            <v-text-field label="Mô tả" v-model="form.description" dense></v-text-field>
+                            ></v-textarea>
                         </v-col>
                     </v-row>
                 </v-container>
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDialog">Huỷ</v-btn>
-                <v-btn v-if="!editing" color="blue darken-1" text @click="createData">Thêm</v-btn>
-                <v-btn v-else color="blue darken-1" text @click="updateData">Cập nhật</v-btn>
+                <v-btn color="blue darken-1" text @click="closeDialog"
+                    >Huỷ</v-btn
+                >
+                <v-btn
+                    v-if="!editing"
+                    color="blue darken-1"
+                    text
+                    @click="createData"
+                    >Thêm</v-btn
+                >
+                <v-btn v-else color="blue darken-1" text @click="updateData"
+                    >Cập nhật</v-btn
+                >
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 <script>
 import { required } from "vuelidate/lib/validators";
-import { store, update } from "@/api/system/role";
+import { store, update } from "@/api/business/scrap";
 
 export default {
     props: ["form", "editing", "showDialog", "options"],
@@ -76,9 +79,6 @@ export default {
                 },
                 code: {
                     required
-                },
-                home_url: {
-                    required
                 }
             }
         };
@@ -86,25 +86,18 @@ export default {
 
     computed: {
         title() {
-            return this.editing ? "Sửa quyền" : "Thêm quyền";
+            return this.editing ? "Sửa phế liệu" : "Thêm phế liệu";
         },
         nameErrors() {
             const errors = [];
             if (!this.$v.form.name.$dirty) return errors;
-            !this.$v.form.name.required && errors.push("Hãy nhập tên quyền");
+            !this.$v.form.name.required && errors.push("Hãy nhập tên phế liệu");
             return errors;
         },
         codeErrors() {
             const errors = [];
             if (!this.$v.form.code.$dirty) return errors;
-            !this.$v.form.code.required && errors.push("Hãy nhập mã quyền");
-            return errors;
-        },
-        homeUrlErrors() {
-            const errors = [];
-            if (!this.$v.form.home_url.$dirty) return errors;
-            !this.$v.form.home_url.required &&
-                errors.push("Hãy nhập đường dẫn trang chủ");
+            !this.$v.form.code.required && errors.push("Hãy nhập mã phế liệu");
             return errors;
         }
     },

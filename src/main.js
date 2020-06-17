@@ -24,6 +24,9 @@ import vuetify from "./plugins/vuetify";
 import VuetifyConfirm from "vuetify-confirm";
 import CURLMixin from "./mixins/crud";
 Vue.use(VuetifyConfirm, { vuetify });
+import imageViewer from "vue-image-viewer";
+
+Vue.use(imageViewer);
 import i18n from "./i18n";
 // Vue.mixin(CURLMixin);
 // import Vuelidate from "vuelidate";

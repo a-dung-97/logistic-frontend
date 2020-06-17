@@ -11,7 +11,7 @@
                             <v-text-field
                                 v-model="form.name"
                                 :error-messages="nameErrors"
-                                label="Tên quyền*"
+                                label="Tên loại xe*"
                                 dense
                                 @input="$v.form.name.$touch()"
                                 @blur="$v.form.name.$touch()"
@@ -21,7 +21,7 @@
                     <v-row>
                         <v-col cols="12" sm="12">
                             <v-text-field
-                                label="Mã quyền*"
+                                label="Mã loại xe*"
                                 v-model="form.code"
                                 dense
                                 :error-messages="codeErrors"
@@ -33,18 +33,14 @@
                     <v-row>
                         <v-col cols="12" sm="12">
                             <v-text-field
-                                label="Home URL*"
-                                v-model="form.home_url"
+                                label="Trọng tải (tấn)*"
+                                v-model="form.tonnage"
                                 dense
-                                :error-messages="homeUrlErrors"
-                                @input="$v.form.home_url.$touch()"
-                                @blur="$v.form.home_url.$touch()"
+                                type="number"
+                                :error-messages="tonnageErrors"
+                                @input="$v.form.tonnage.$touch()"
+                                @blur="$v.form.tonnage.$touch()"
                             ></v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col cols="12" sm="12">
-                            <v-text-field label="Mô tả" v-model="form.description" dense></v-text-field>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -59,8 +55,8 @@
     </v-dialog>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators";
-import { store, update } from "@/api/system/role";
+import { required, minValue } from "vuelidate/lib/validators";
+import { store, update } from "@/api/business/truck-type";
 
 export default {
     props: ["form", "editing", "showDialog", "options"],
@@ -77,8 +73,9 @@ export default {
                 code: {
                     required
                 },
-                home_url: {
-                    required
+                tonnage: {
+                    required,
+                    minValue: minValue(0)
                 }
             }
         };
@@ -86,25 +83,27 @@ export default {
 
     computed: {
         title() {
-            return this.editing ? "Sửa quyền" : "Thêm quyền";
+            return this.editing ? "Sửa loại xe" : "Thêm loại xe";
         },
         nameErrors() {
             const errors = [];
             if (!this.$v.form.name.$dirty) return errors;
-            !this.$v.form.name.required && errors.push("Hãy nhập tên quyền");
+            !this.$v.form.name.required && errors.push("Hãy nhập tên loại xe");
             return errors;
         },
         codeErrors() {
             const errors = [];
             if (!this.$v.form.code.$dirty) return errors;
-            !this.$v.form.code.required && errors.push("Hãy nhập mã quyền");
+            !this.$v.form.code.required && errors.push("Hãy nhập mã loại xe");
             return errors;
         },
-        homeUrlErrors() {
+        tonnageErrors() {
             const errors = [];
-            if (!this.$v.form.home_url.$dirty) return errors;
-            !this.$v.form.home_url.required &&
-                errors.push("Hãy nhập đường dẫn trang chủ");
+            if (!this.$v.form.tonnage.$dirty) return errors;
+            !this.$v.form.tonnage.required &&
+                errors.push("Hãy nhập trọng tải loại xe");
+            !this.$v.form.tonnage.minValue &&
+                errors.push("Trọng tải phải lớn hơn 0");
             return errors;
         }
     },

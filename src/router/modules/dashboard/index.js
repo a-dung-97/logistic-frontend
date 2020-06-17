@@ -1,29 +1,15 @@
+import categoryRouter from "./category";
+import systemRouter from "./system";
+import truckRouter from "./truck";
 const dashboardRouter = [
     // Dashboard
+    ...systemRouter,
+    ...categoryRouter,
+    ...truckRouter,
     {
-        name: "Người dùng",
-        path: "users",
-        component: () => import("@/views/dashboard/user/index")
-    },
-    {
-        name: "Menu",
-        path: "menus",
-        component: () => import("@/views/dashboard/menu/index")
-    },
-    {
-        name: "Quyền",
-        path: "roles",
-        component: () => import("@/views/dashboard/role/index")
-    },
-    {
-        name: "Nhóm chức năng",
-        path: "action/action-groups",
-        component: () => import("@/views/dashboard/action/action-group/index")
-    },
-    {
-        name: "Danh sách chức năng",
-        path: "action/list",
-        component: () => import("@/views/dashboard/action/list/index")
+        name: "Khách hàng",
+        path: "customers",
+        component: () => import("@/views/dashboard/customer/index")
     }
     // Components
     // Forms

@@ -11,7 +11,7 @@
                             <v-text-field
                                 v-model="form.name"
                                 :error-messages="nameErrors"
-                                label="Tên quyền*"
+                                label="Tên khách hàng*"
                                 dense
                                 @input="$v.form.name.$touch()"
                                 @blur="$v.form.name.$touch()"
@@ -21,7 +21,7 @@
                     <v-row>
                         <v-col cols="12" sm="12">
                             <v-text-field
-                                label="Mã quyền*"
+                                label="Mã khách hàng*"
                                 v-model="form.code"
                                 dense
                                 :error-messages="codeErrors"
@@ -33,34 +33,64 @@
                     <v-row>
                         <v-col cols="12" sm="12">
                             <v-text-field
-                                label="Home URL*"
-                                v-model="form.home_url"
+                                label="SĐT"
+                                v-model="form.phone_number"
                                 dense
-                                :error-messages="homeUrlErrors"
-                                @input="$v.form.home_url.$touch()"
-                                @blur="$v.form.home_url.$touch()"
+                                :error-messages="phoneNumberErrors"
+                                @input="$v.form.phone_number.$touch()"
+                                @blur="$v.form.phone_number.$touch()"
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="12">
-                            <v-text-field label="Mô tả" v-model="form.description" dense></v-text-field>
+                            <v-text-field
+                                label="Địa chỉ"
+                                v-model="form.address"
+                                dense
+                            ></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" sm="6">
+                            <v-text-field
+                                label="Kinh độ"
+                                v-model="form.latitude"
+                                dense
+                            ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                            <v-text-field
+                                label="Vĩ độ"
+                                v-model="form.longitude"
+                                dense
+                            ></v-text-field>
                         </v-col>
                     </v-row>
                 </v-container>
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDialog">Huỷ</v-btn>
-                <v-btn v-if="!editing" color="blue darken-1" text @click="createData">Thêm</v-btn>
-                <v-btn v-else color="blue darken-1" text @click="updateData">Cập nhật</v-btn>
+                <v-btn color="blue darken-1" text @click="closeDialog"
+                    >Huỷ</v-btn
+                >
+                <v-btn
+                    v-if="!editing"
+                    color="blue darken-1"
+                    text
+                    @click="createData"
+                    >Thêm</v-btn
+                >
+                <v-btn v-else color="blue darken-1" text @click="updateData"
+                    >Cập nhật</v-btn
+                >
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators";
-import { store, update } from "@/api/system/role";
+import { required, numeric } from "vuelidate/lib/validators";
+import { store, update } from "@/api/business/customer";
 
 export default {
     props: ["form", "editing", "showDialog", "options"],
@@ -77,8 +107,8 @@ export default {
                 code: {
                     required
                 },
-                home_url: {
-                    required
+                phone_number: {
+                    numeric
                 }
             }
         };
@@ -86,25 +116,27 @@ export default {
 
     computed: {
         title() {
-            return this.editing ? "Sửa quyền" : "Thêm quyền";
+            return this.editing ? "Sửa khách hàng" : "Thêm khách hàng";
         },
         nameErrors() {
             const errors = [];
             if (!this.$v.form.name.$dirty) return errors;
-            !this.$v.form.name.required && errors.push("Hãy nhập tên quyền");
+            !this.$v.form.name.required &&
+                errors.push("Hãy nhập tên khách hàng");
             return errors;
         },
         codeErrors() {
             const errors = [];
             if (!this.$v.form.code.$dirty) return errors;
-            !this.$v.form.code.required && errors.push("Hãy nhập mã quyền");
+            !this.$v.form.code.required &&
+                errors.push("Hãy nhập mã khách hàng");
             return errors;
         },
-        homeUrlErrors() {
+        phoneNumberErrors() {
             const errors = [];
-            if (!this.$v.form.home_url.$dirty) return errors;
-            !this.$v.form.home_url.required &&
-                errors.push("Hãy nhập đường dẫn trang chủ");
+            if (!this.$v.form.phone_number.$dirty) return errors;
+            !this.$v.form.phone_number.numeric &&
+                errors.push("Hãy nhập số điện thoại");
             return errors;
         }
     },
