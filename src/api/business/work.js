@@ -55,8 +55,8 @@ export function getRouteLists(params) {
 }
 export function saveToWarehouse(data) {
     return request({
-        url: `route-lists`,
-        method: "get",
+        url: `save-to-warehouse`,
+        method: "post",
         data
     });
 }

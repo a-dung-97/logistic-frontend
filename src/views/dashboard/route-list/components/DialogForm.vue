@@ -2,32 +2,21 @@
     <v-dialog v-model="showDialog" persistent max-width="600px">
         <v-card :loading="loading">
             <v-card-title>
-                <span class="headline">{{ title }}</span>
+                <span class="headline">Lưu kho</span>
             </v-card-title>
             <v-card-text>
                 <v-container>
                     <v-row>
-                        <v-col cols="12" sm="12">
-                            <v-text-field
-                                v-model="form.name"
-                                :error-messages="nameErrors"
-                                label="Tên kho*"
+                        <v-col cols="12">
+                            <v-select
+                                :items="options.warehouses"
+                                item-text="name"
+                                v-model="form.warehouse_id"
+                                item-value="id"
+                                label="Chọn kho"
                                 dense
-                                @input="$v.form.name.$touch()"
-                                @blur="$v.form.name.$touch()"
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col cols="12" sm="12">
-                            <v-text-field
-                                label="Mã kho*"
-                                v-model="form.code"
-                                dense
-                                :error-messages="codeErrors"
-                                @input="$v.form.code.$touch()"
-                                @blur="$v.form.code.$touch()"
-                            ></v-text-field>
+                                clearable
+                            ></v-select>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -42,7 +31,7 @@
                     color="blue darken-1"
                     text
                     @click="createData"
-                    >Thêm</v-btn
+                    >Lưu kho</v-btn
                 >
                 <v-btn v-else color="blue darken-1" text @click="updateData"
                     >Cập nhật</v-btn
@@ -53,7 +42,7 @@
 </template>
 <script>
 import { required } from "vuelidate/lib/validators";
-import { store, update } from "@/api/business/warehouse";
+import { saveToWarehouse as store } from "@/api/business/work";
 
 export default {
     props: ["form", "editing", "showDialog", "options"],

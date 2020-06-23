@@ -40,6 +40,18 @@
                         dense
                     ></v-select>
                 </v-col>
+                <v-col cols="12" md="6" lg="4" class="pb-0">
+                    <v-select
+                        :items="status1"
+                        item-text="name"
+                        v-model="params.save_to_warehouse"
+                        item-value="id"
+                        label="Trạng thái"
+                        clearable
+                        outlined
+                        dense
+                    ></v-select>
+                </v-col>
             </v-row>
         </v-col>
         <v-col cols="12" style="padding-top:20px" md="4">
@@ -86,6 +98,16 @@ export default {
                 {
                     id: 5,
                     name: "Bị huỷ"
+                }
+            ],
+            status1: [
+                {
+                    id: 1,
+                    name: "Đã lưu kho"
+                },
+                {
+                    id: 2,
+                    name: "Chưa lưu kho"
                 }
             ]
         };

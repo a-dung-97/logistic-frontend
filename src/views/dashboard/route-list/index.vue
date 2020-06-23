@@ -14,7 +14,7 @@
                     :form="form"
                     :table-data="tableData"
                     @handle-edit="showDialogForm('edit', $event)"
-                    @handle-create="showDialogForm('create')"
+                    @handle-create="showDialogForm('create', $event)"
                     @handle-delete="getData()"
                 />
             </v-col>
@@ -56,6 +56,7 @@ export default {
                 page: 1,
                 per_page: 20,
                 status: "",
+                save_to_warehouse: "",
                 date: new Date().toISOString().substr(0, 10)
             },
             params: {},
@@ -101,7 +102,7 @@ export default {
                 }
             } else {
                 for (let field in this.form) this.form[field] = "";
-                this.form.id = undefined;
+                this.form.task_id = data;
                 this.editing = false;
             }
             this.showDialog = true;

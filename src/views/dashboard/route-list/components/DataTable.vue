@@ -9,31 +9,15 @@
             disable-filtering
             class="elevation-1"
         >
-            <template v-slot:top>
-                <v-toolbar class="custom-toolbar" flat>
-                    <v-toolbar-title>Danh sách lộ trình</v-toolbar-title>
-
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        @click="$emit('handle-create')"
-                        class="mx-2"
-                        small
-                        fab
-                        dark
-                        color="indigo"
-                    >
-                        <v-icon dark>mdi-plus</v-icon>
-                    </v-btn>
-                </v-toolbar>
-            </template>
             <template v-slot:item.actions="{ item }">
                 <v-btn
                     x-small
-                    @click="$emit('handle-create')"
+                    @click="$emit('handle-create', item.id)"
                     fab
                     color="primary"
+                    :disabled="item.status != 4 || item.receipt_count == 1"
                 >
-                    <v-icon dark>mdi-plus</v-icon>
+                    <v-icon dark>mdi-check</v-icon>
                 </v-btn>
             </template>
             <template v-slot:item.status="{ item }">
@@ -47,6 +31,7 @@
                 >
                 <v-chip class="error" v-if="item.status == 5">Đã huỷ</v-chip>
             </template>
+
             <template v-slot:no-data>
                 <v-btn color="primary" @click="$emit('handle-reset')"
                     >Refresh</v-btn
@@ -90,6 +75,11 @@ export default {
                 { text: "Lái xe", value: "user.name" },
                 { text: "Khách hàng", value: "work.customers" },
                 { text: "Trạng thái", value: "status", align: "center" },
+                {
+                    text: "Lưu kho",
+                    value: "receipt.warehouse.name",
+                    align: "center"
+                },
                 { text: "Hành động", value: "actions", align: "center" }
             ]
         };
