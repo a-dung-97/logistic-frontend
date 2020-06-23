@@ -10,7 +10,7 @@
     >
         <template v-slot:top>
             <v-toolbar class="custom-toolbar" flat>
-                <v-toolbar-title>Danh sách phế liệu</v-toolbar-title>
+                <v-toolbar-title>Danh sách công việc</v-toolbar-title>
 
                 <v-spacer></v-spacer>
                 <v-btn @click="$emit('handle-create')" class="mx-2" small fab dark color="indigo">
@@ -37,6 +37,7 @@
             <v-chip class="success" v-if="item.status == 2">Đã điều phối</v-chip>
             <v-chip class="warning" v-if="item.status == 3">Đã huỷ</v-chip>
         </template>
+        <template v-slot:item.shift="{ item }">{{ item.shift==1?'Sáng':'Chiều' }}</template>
 
         <template v-slot:item.actions="{ item }">
             <v-btn

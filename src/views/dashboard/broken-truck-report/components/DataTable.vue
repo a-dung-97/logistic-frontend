@@ -16,12 +16,8 @@
                 </v-toolbar>
             </template>
             <template v-slot:item.status="{ item }">
-                <v-chip v-if="item.status == 1" color="info" dark
-                    >Chờ phê duyệt</v-chip
-                >
-                <v-chip v-else-if="item.status == 2" color="success" dark
-                    >Chấp nhận</v-chip
-                >
+                <v-chip v-if="item.status == 1" color="info" dark>Chờ phê duyệt</v-chip>
+                <v-chip v-else-if="item.status == 2" color="success" dark>Chấp nhận</v-chip>
                 <v-chip v-else color="warning" dark>Từ chối</v-chip>
             </template>
             <template v-slot:item.images="{ item }">
@@ -38,7 +34,7 @@
             <template v-slot:item.actions="{ item }">
                 <!-- <v-icon small class="mr-2" @click="$emit('handle-edit', item)"
                 >mdi-pencil</v-icon
-            >-->
+                >-->
                 <v-btn
                     x-small
                     :disabled="item.status != 1"
@@ -62,9 +58,7 @@
                 <!-- <v-icon small @click="handleDelete(item.id)">mdi-delete</v-icon> -->
             </template>
             <template v-slot:no-data>
-                <v-btn color="primary" @click="$emit('handle-reset')"
-                    >Refresh</v-btn
-                >
+                <v-btn color="primary" @click="$emit('handle-reset')">Refresh</v-btn>
             </template>
         </v-data-table>
         <image-viewer-vue
@@ -75,8 +69,7 @@
             :title="title"
             :closable="true"
             :cyclical="false"
-        >
-        </image-viewer-vue>
+        ></image-viewer-vue>
     </div>
 </template>
 <script>
@@ -89,7 +82,7 @@ export default {
             imageViewerFlag: false,
             imgUrlList: [],
             currentIndex: 1,
-            title: "abc",
+            title: "broken_truck_report",
             headers: [
                 { text: "Thời gian", value: "created_at" },
                 { text: "BKS", value: "truck.number_plate" },

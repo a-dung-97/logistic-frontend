@@ -46,3 +46,17 @@ export function getTasks(id) {
         method: "get"
     });
 }
+export function getRouteLists(params) {
+    return request({
+        url: `route-lists`,
+        method: "get",
+        params
+    });
+}
+export function saveToWarehouse(data) {
+    return request({
+        url: `route-lists`,
+        method: "get",
+        data
+    });
+}
