@@ -6,6 +6,7 @@
                     :params="params"
                     @handle-search="getData(1)"
                     @handle-reset="reset"
+                    :data="tableData"
                     :options="options"
                 />
             </v-col>

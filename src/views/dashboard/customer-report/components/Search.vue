@@ -21,14 +21,33 @@
                 color="primary"
                 >Reset</v-btn
             >
+            <download-excel
+                :fields="{
+                    'Mã khách hàng': 'code',
+                    'Tên khách hàng': 'name',
+                    'Tổng biên bản giao nhận': 'issues_count',
+                    'Tổng KL': 'quantity'
+                }"
+                :data="data"
+                name="customer.xls"
+            >
+                <v-btn
+                    :disabled="data.length === 0"
+                    class="float-md-right mr-4"
+                    color="primary"
+                    >Xuất Excel</v-btn
+                >
+            </download-excel>
         </v-col>
     </v-row>
 </template>
 <script>
 import DateRangePicker from "../../../../components/DateRangePicker";
+import DownloadExcel from "vue-json-excel";
+
 export default {
-    props: ["params", "options"],
-    components: { DateRangePicker },
+    props: ["params", "options", "data"],
+    components: { DateRangePicker, DownloadExcel },
     data() {
         return {
             drawer: true,
